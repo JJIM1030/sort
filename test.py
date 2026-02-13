@@ -1,139 +1,36 @@
-# n = int(input())
-#
-# for i in range(n):
-#     for j in range(n):
-#         print("#", end="")
-#     print()
+T = int(input())
 
+for t in range(1, T+1):
+    N = int(input())
+    a = [list(map(int, input().split())) for _ in range(N)]
+    n = []
+    for i in range(N):
+        for j in range(N):
+            if a[i][j] == 2:  # 경비원 위치
+                x, y = i, j
+                break
 
-# a = ["A", "B", "Q", "T"]
-#
-# for i in range(len(a)):
-#     for j in range(len(a)-1, -1, -1):
-#         print(a[j], end="")
-#     print()
+    dx = [0, 1, 0, -1]
+    dy = [1, 0, -1, 0]
+    cnt = 0
 
+    for d in range(4):
+        nx, ny = x, y
+        while True:
+            nx += dx[d]
+            ny += dy[d]
+            if not(0 <= nx < N and 0 <= ny < N):
+                break
+            if a[nx][ny] == 1:
+                break
+            if a[nx][ny] == 0:
+                a[nx][ny] = 3 # 감시된 칸 처리
 
-# a = [[0] * 4 for _ in range(4)]
-# t = 0
-#
-# for x in a:
-#     for y in x:
-#         y = t
-#         print(y, end="")
-#     t += 1
-#     print()
+    for i in range(N):
+        for j in range(N):
+            if a[i][j]==0:
+                cnt += 1
 
-
-# for i in range(1, 4):
-#     for j in range(1, 5):
-#         print(i, j)
-
-
-# a = list(map(int, input().split()))
-# cnt = 0
-#
-# for i in a:
-#     if i ==7:
-#         cnt += 1
-#
-# print(cnt)
-
-
-# a = [[0] * 4 for _ in range(4)]
-# count = 0
-#
-# a[0][0] = 7
-# a[1][3] = 1
-# a[2][1] = 3
-# a[3][3] = 9
-#
-# for i in range(len(a)):
-#     print(a[3][i], end= " ")
-
-
-# a = [
-#     [7, 1, 3, 5],
-#     [9, 5, 9, 1],
-#     [1, 3, 1, 5],
-#     [3, 5, 9, 9],
-# ]
-#
-# for i in a:
-#     for j in range(len(i)):
-#         if j == 2:
-#             print(i[j], end= " ")
-
-
-# a = [
-#     [5, 4, 2, 1],
-#     [3, 7, 7, 7],
-#     [2, 2, 1, 1],
-# ]
-#
-# for j in range(len(a) + 1):
-#     for l in range(len(a)):
-#         print(a[l][j], end=" ")
-#     print()
-
-
-# a = []
-#
-# for _ in range(4):
-#     a.append(list(map(int, input().split())))
-#
-# for i in range(len(a)-1, -1, -1):
-#     for j in range(len(a)-1, -1, -1):
-#         print(a[i][j], end= " ")
-#     print()
-
-
-# a = []
-# cnt = 0
-#
-# for _ in range(5):
-#     a.append(list(map(int, input().split())))
-#
-# max_v, min_v = a[0][0], a[0][0]
-# sum_v = 0
-#
-# for i in a:
-#     for j in i:
-#         if j == 2:
-#             cnt += 1
-#         if j > max_v:
-#             max_v = j
-#         if j < min_v:
-#             min_v = j
-#
-# for i in range(len(a)):
-#     for j in range(len(a)):
-#         if j == i:
-#             sum_v += a[i][j]
-#
-# print(cnt)
-# print(max_v, min_v)
-# print(sum_v)
-
-
-
-a = list(map(int, input().split()))
-
-def is_baby_gin(a):
-    arr = sorted(a)
-    if arr[0] + 1 == arr[1] and arr[1] + 1 == arr[2] and arr[3] == arr[4] == arr[5]:
-        return True
-    if arr[3] + 1 == arr[4] and arr[4] + 1 == arr[5] and arr[0] == arr[1] == arr[2]:
-        return True
-    if arr[0] + 1 == arr[1] and arr[1] + 1 == arr[2] and arr[3] + 1 == arr[4] and arr[4] == arr[5]:
-        return True
-    if arr[0] == arr[1] == arr[2] and arr[3] == arr[4] == arr[5]:
-        return True
-    else:
-        return False
-
-if is_baby_gin(a) == True:
-    print("Yes")
-else: print("No")
+    print(f"#{t} {cnt}")
 
 
